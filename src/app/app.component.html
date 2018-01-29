@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Josep Ingles Arenes</title>
+    <style media="screen">
+    .contenedor {
+height: 350px;
+margin: auto;
+width: 350px;
+-webkit-perspective: 700;
+}
+
+.carta {
+height: 100%;
+width: 100%;
+transition: all 1s;
+transform-style: preserve-3d;
+box-shadow: 0px 0px 15px black;
+position: absolute;
+}
+
+.carta:hover{
+transform: rotateY(180deg);
+}
+
+.lado{
+position: absolute;
+height: 100%;
+width: 100%;
+ background: #F0F0F0;
+backface-visibility: hidden;
+}
+
+.frente{ background-color: #F0F0F0; }
+
+ul {
+padding: 0;
+margin:0;
+list-style: none;
+height: 204px;
+
+}
+
+li {
+text-decoration: none;
+padding: 10px;
+z-index:80;
+}
+
+
+.atras{
+height: 100%;
+width: 100%;
+transform: rotateY(180deg);
+}
+
+/*Colores para el ngClass*/
+.azul{background-color:blue;
+    width: 350px;
+    height: 350px;
+  }
+.gris{background-color: grey;
+      width: 350px;
+      height: 350px;
+      }
+.amarillo{background-color: yellow;
+        width: 350px;
+        height: 350px;}
+    </style>
+  </head>
+  <body>
+    <div class="contenedor">
+  <div class="carta">
+
+			    <div class="lado frente">
+            <h1>Empresa: {{empresa}}</h1>
+            <!--Utilizamos el ngclass para la condicion de color-->
+            <div  [ngClass]="{azul:cuenta==1,gris:cuenta==2,amarillo:cuenta==3}">
+              <div class="card">
+                <div class="container">
+                  <!-- Ponemos los campos que vamos a rellenar en el formulario-->
+                <h3>Nombre:{{nombre}}</h3>
+                <h3>Apellidos:{{apellidos}}</h3>
+                <h3>Correo:{{correo}}</h3>
+                <h3>Telefono:{{telefono}}</h3>
+                <h3>Empleo:{{empleo}}</h3>
+                <h3>Empresa:{{empresa}}</h3>
+
+              <!--  Utilizamos Ng switch para  la condicion, en este caso para saber si es autonomo o no -->
+                <div [ngSwitch]="autonomo">
+                  <h4><p *ngSwitchCase="0">Autonomo: Si</p></h4>
+                  <h4><p *ngSwitchCase="1">Autonomo: No</p></h4>
+                </div>
+
+              </div>
+          </div>
+            </div>
+			    </div>
+
+			    <div class="lado atras">
+            <div class="form"><br>
+              <!--Ahora en la parte trasera pondremos el formulario a rellenar-->
+              Nombre:<input type="text"id="nombre" (keyup)="cajas($event);"><br><br>
+              Apellidos:<input type="text" id="apellidos" (keyup)="cajas($event);"><br><br>
+              Correo:<input type="text" id="correo" (keyup)="cajas($event);"><br><br>
+              Telefono:<input type="number" id="telefono" (keyup)="cajas($event);"><br><br>
+              Empleo:<input type="text"id="empleo" (keyup)="cajas($event);"><br><br>
+              Empresa:<input type="text"id="empresa" (keyup)="cajas($event);"><br><br>
+              <!--En el color mostraremos las tres opciones que serian las de el ngClass-->
+              Color:<select type="color" (change)="color($event);">
+                <option value="1">Azul</option>
+                <option value="2">Gris</option>
+                <option value="3">Amarillo</option>
+              </select>
+              <br><br>
+             <!--Igual que en el color, pero ahora mostraremos el ngSwitch anterior para la condicion de si es autonomo o no.-->
+              Eres autonomo?: <select (change)="autonomo($event);">
+                <option value="0">Si</option>
+                <option value="1">No</option>
+              </select>
+
+            </div>
+    			</div>
+
+		  </div>
+	</div>
+  </body>
+</html>
